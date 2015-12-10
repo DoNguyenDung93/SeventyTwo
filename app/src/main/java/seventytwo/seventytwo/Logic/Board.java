@@ -6,4 +6,7 @@ package seventytwo.seventytwo.Logic;
  * Each square will fit one token.
  */
 public class Board {
+
+    // Attributes
+
 }
