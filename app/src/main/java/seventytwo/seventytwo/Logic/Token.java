@@ -8,7 +8,7 @@ public class Token {
 
     // Attributes
     private Color _color;
-    private Number _number;
+    private int _number;
 
     // Constructors
     public Token(Token token) {
@@ -16,9 +16,9 @@ public class Token {
         _number = token.getNumber();
     }
 
-    public Token(String color, String number) {
+    public Token(String color, int number) {
         _color = Color.valueOf(color);
-        _number = Number.valueOf(number);
+        _number = number;
     }
 
     // Mutators
@@ -26,7 +26,7 @@ public class Token {
         _color = color;
     }
 
-    public void setNumber(Number number) {
+    public void setNumber(int number) {
         _number = number;
     }
 
@@ -35,15 +35,15 @@ public class Token {
         return this._color;
     }
 
-    public Number getNumber() {
+    public int getNumber() {
         return this._number;
     }
 
     @Override
     public String toString() {
         String tokenDetails = "";
-        String color = _color.toString();
-        String number = _number.toString();
+        String color = _color.toString().substring(0,1).toUpperCase();
+        String number = Integer.toString(_number);
         tokenDetails = tokenDetails.concat(color).concat(", ").concat(number).concat("\n");
         return tokenDetails;
     }
