@@ -1,4 +1,4 @@
-package seventytwo.seventytwo.Logic;
+package seventytwo.seventytwo.Component;
 
 /**
  * Created by dongu on 10/12/2015.
