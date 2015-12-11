@@ -8,6 +8,7 @@ public class Cell {
     // Attributes
     private int _xCoord;
     private int _yCoord;
+    private Token _token = null;
 
     // Constructors
     public Cell(Cell cell) {
@@ -43,5 +44,13 @@ public class Cell {
         String cellDetails = "";
         cellDetails = cellDetails.concat(Integer.toString(_xCoord)).concat(", ").concat(Integer.toString(_yCoord)).concat("\n");
         return cellDetails;
+    }
+
+    public boolean isCellEmpty() {
+        boolean result = true;
+        if (_token == null) {
+            result = false;
+        }
+        return result;
     }
 }
