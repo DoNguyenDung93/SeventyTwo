@@ -7,11 +7,11 @@ package seventytwo.seventytwo.Logic;
  */
 public class Board {
 
-    private static Board singleBoard = new Board();
+    private static Board _singleBoard = new Board();
 
     // Attributes
-    private int[] row = {1, 2, 3, 4, 5, 6};
-    private int[] column = {1, 2, 3, 4, 5, 6};
+    private Cell[] row = new Cell[10];
+    private Cell[] column = new Cell[11];
 
     // Constructor
     public Board() {
@@ -19,9 +19,19 @@ public class Board {
 
     // Accessor
     public static Board getInstance() {
-        if (singleBoard == null) {
-            singleBoard = new Board();
+        if (_singleBoard == null) {
+            _singleBoard = new Board();
         }
-        return singleBoard;
+        return _singleBoard;
+    }
+
+    public Board saveBoard() {
+        // TODO
+        return _singleBoard;
+    }
+
+    public Board loadBoard() {
+        // TODO
+        return _singleBoard;
     }
 }
