@@ -5,4 +5,5 @@ package seventytwo.seventytwo.Command;
  * This class handles the generation of a new board when the user choose to start a new game.
  */
 public class NewGameCommand {
+
 }
