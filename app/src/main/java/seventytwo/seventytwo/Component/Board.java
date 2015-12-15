@@ -12,12 +12,16 @@ import seventytwo.seventytwo.Logger.GlobalLogger;
  */
 public class Board {
 
+    private static final int NO_OF_ROW = 10;
+    private static final int NO_OF_COL = 11;
+
     private static Board _singleBoard = new Board();
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
 
     // Attributes
-    private Cell[] row = new Cell[10];
-    private Cell[] column = new Cell[11];
+    //private Cell[] row = new Cell[10];
+    //private Cell[] column = new Cell[11];
+    private Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
 
     // Constructor
     public Board() {
@@ -51,6 +55,10 @@ public class Board {
     }
 
     private void clearBoard() {
-
+        for (int i = 0; i < NO_OF_ROW; i++) {
+            for (int j = 0; j < NO_OF_COL; j++) {
+                board[i][j].setToken(null);
+            }
+        }
     }
 }
