@@ -43,7 +43,11 @@ public class Board {
     }
 
     public Board saveBoard() {
-        // TODO
+        for (int i = 0; i < NO_OF_ROW; i++) {
+            for (int j = 0; j < NO_OF_COL; j++) {
+                Token token = board[i][j].getToken();
+            }
+        }
         _logger.log(Level.INFO, "Save the current state of the board.");
         return _singleBoard;
     }
@@ -60,5 +64,6 @@ public class Board {
                 board[i][j].setToken(null);
             }
         }
+        _logger.log(Level.INFO, "Clear the board of the current tokens.");
     }
 }
