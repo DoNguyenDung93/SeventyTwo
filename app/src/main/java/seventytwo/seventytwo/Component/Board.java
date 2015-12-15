@@ -32,6 +32,12 @@ public class Board {
         return _singleBoard;
     }
 
+    public Board newBoard() {
+        // TODO
+        _logger.log(Level.INFO, "Create a new board for new game.");
+        return _singleBoard;
+    }
+
     public Board saveBoard() {
         // TODO
         _logger.log(Level.INFO, "Save the current state of the board.");
@@ -42,5 +48,9 @@ public class Board {
         // TODO
         _logger.log(Level.INFO, "Load a previous state of the board.");
         return _singleBoard;
+    }
+
+    private void clearBoard() {
+
     }
 }

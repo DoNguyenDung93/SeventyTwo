@@ -36,6 +36,10 @@ public class Cell {
         _yCoord = y;
     }
 
+    public void setToken(Token token) {
+        _token = token;
+    }
+
     // Accessors
     public int getXCoord() {
         return _xCoord;
@@ -43,6 +47,10 @@ public class Cell {
 
     public int getYCoord() {
         return _yCoord;
+    }
+
+    public Token getToken() {
+        return _token;
     }
 
     @Override
