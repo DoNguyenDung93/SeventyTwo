@@ -2,8 +2,11 @@ package seventytwo.seventytwo.Storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seventytwo.seventytwo.Component.Board;
+import seventytwo.seventytwo.Logger.GlobalLogger;
 
 /**
  * Created by dongu on 10/12/2015.
@@ -14,6 +17,7 @@ public class LastGameState {
     // Attribute
     private File _saveFile;
 
+    private static Logger _logger = GlobalLogger.getInstance().getLogger();
     // Constructor
 
     public LastGameState() {
@@ -32,7 +36,7 @@ public class LastGameState {
         } else {
             // TODO
         }
-
+        _logger.log(Level.INFO, "Open the save file and retrieve the lastest state of the board.");
         return board;
     }
 

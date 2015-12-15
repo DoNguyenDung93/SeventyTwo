@@ -1,5 +1,9 @@
 package seventytwo.seventytwo.Component;
 
+import java.util.logging.Logger;
+
+import seventytwo.seventytwo.Logger.GlobalLogger;
+
 /**
  * Created by dongu on 10/12/2015.
  * This class handles cell, which is an individual unit on the game board.
@@ -9,6 +13,8 @@ public class Cell {
     private int _xCoord;
     private int _yCoord;
     private Token _token = null;
+
+    private static Logger _logger = GlobalLogger.getInstance().getLogger();
 
     // Constructors
     public Cell(Cell cell) {

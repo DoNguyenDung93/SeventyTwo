@@ -1,5 +1,10 @@
 package seventytwo.seventytwo.Component;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seventytwo.seventytwo.Logger.GlobalLogger;
+
 /**
  * Created by dongu on 10/12/2015.
  * This class will handle the creation and manipulation of the game board, which consists of 72 cells.
@@ -8,6 +13,7 @@ package seventytwo.seventytwo.Component;
 public class Board {
 
     private static Board _singleBoard = new Board();
+    private static Logger _logger = GlobalLogger.getInstance().getLogger();
 
     // Attributes
     private Cell[] row = new Cell[10];
@@ -22,16 +28,19 @@ public class Board {
         if (_singleBoard == null) {
             _singleBoard = new Board();
         }
+        _logger.log(Level.INFO, "Creating a new instance of the board.");
         return _singleBoard;
     }
 
     public Board saveBoard() {
         // TODO
+        _logger.log(Level.INFO, "Save the current state of the board.");
         return _singleBoard;
     }
 
     public Board loadBoard() {
         // TODO
+        _logger.log(Level.INFO, "Load a previous state of the board.");
         return _singleBoard;
     }
 }

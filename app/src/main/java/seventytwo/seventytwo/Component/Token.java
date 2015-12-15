@@ -1,5 +1,9 @@
 package seventytwo.seventytwo.Component;
 
+import java.util.logging.Logger;
+
+import seventytwo.seventytwo.Logger.GlobalLogger;
+
 /**
  * Created by dongu on 10/12/2015.
  * This class handles tokens, which has 2 primary attributes: Color and Number.
@@ -9,6 +13,8 @@ public class Token {
     // Attributes
     private Color _color;
     private int _number;
+
+    private static Logger _logger = GlobalLogger.getInstance().getLogger();
 
     // Constructors
     public Token(Token token) {

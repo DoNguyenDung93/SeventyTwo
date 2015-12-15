@@ -2,6 +2,10 @@ package seventytwo.seventytwo.Storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seventytwo.seventytwo.Logger.GlobalLogger;
 
 /**
  * Created by dongu on 10/12/2015.
@@ -11,6 +15,7 @@ public class HighScore {
     // Attribute
     private File _saveFile;
 
+    private static Logger _logger = GlobalLogger.getInstance().getLogger();
     // Constructor
 
     public HighScore() {
@@ -29,7 +34,7 @@ public class HighScore {
         } else {
             // TODO
         }
-
+        _logger.log(Level.INFO, "Open the save file and get the high score.");
         return highScore;
     }
 
