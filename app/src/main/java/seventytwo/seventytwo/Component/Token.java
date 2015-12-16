@@ -23,8 +23,8 @@ public class Token {
         _number = token.getNumber();
     }
 
-    public Token(String color, int number) {
-        _color = Color.valueOf(color);
+    public Token(Color color, int number) {
+        _color = color;
         _number = number;
     }
 
@@ -56,19 +56,19 @@ public class Token {
     }
 
     public static Token fromString(String tokenString) {
-        String color;
+        Color color;
         switch (tokenString.substring(0,1)) {
-            case "R": color = "RED";
+            case "R": color = Color.RED;
                 break;
-            case "B": color = "BLUE";
+            case "B": color = Color.BLUE;
                 break;
-            case "G": color = "GREEN";
+            case "G": color = Color.GREEN;
                 break;
-            case "Y": color = "YELLOW";
+            case "Y": color = Color.YELLOW;
                 break;
-            case "C": color = "CYAN";
+            case "C": color = Color.CYAN;
                 break;
-            case "P": color = "PINK";
+            case "P": color = Color.PINK;
                 break;
             default: color = null;
         }
