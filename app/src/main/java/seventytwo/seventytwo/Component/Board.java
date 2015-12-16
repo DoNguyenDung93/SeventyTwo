@@ -31,15 +31,6 @@ public class Board {
         _board = board;
     }
 
-    // Accessor
-//   // public static Board getInstance() {
-//        if (_singleBoard == null) {
-//            _singleBoard = new Board(_board);
-//        }
-//        _logger.log(Level.INFO, "Creating a new instance of the board.");
-//        return _singleBoard;
-//    }
-
     public Cell[][] newBoard() {
         //Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
         clearBoard();
