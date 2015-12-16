@@ -14,16 +14,14 @@ import seventytwo.seventytwo.Storage.StorageManipulator;
  */
 public class Board {
 
-    private static final int NO_OF_ROW = 10;
-    private static final int NO_OF_COL = 11;
+    private static final int NO_OF_ROW = 8;
+    private static final int NO_OF_COL = 9;
 
     private static Board _singleBoard = new Board();
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
     private StorageManipulator _storageManipulator = new StorageManipulator();
 
     // Attributes
-    //private Cell[] row = new Cell[10];
-    //private Cell[] column = new Cell[11];
     private Cell[][] _board = new Cell[NO_OF_ROW][NO_OF_COL];
 
     // Constructor
@@ -79,6 +77,13 @@ public class Board {
     }
 
     private void fillBoard(ArrayList<String> saveContent) {
-        // TODO
+        String tokenDetails = saveContent.get(0);
+        String[] tokenDetailsArray = tokenDetails.split(" ");
+        for (int i = 0; i < NO_OF_COL; i++) {
+            for (int j = 0; i < NO_OF_ROW; j++) {
+                _board[i][j].setToken(Token.fromString(tokenDetailsArray[i+j]));
+            }
+        }
+        _logger.log(Level.INFO, "Fill the board with save data.");
     }
 }

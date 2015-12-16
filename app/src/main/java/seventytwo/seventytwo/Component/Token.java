@@ -51,7 +51,7 @@ public class Token {
         String tokenDetails = "";
         String color = _color.toString().substring(0,1).toUpperCase();
         String number = Integer.toString(_number);
-        tokenDetails = tokenDetails.concat(color).concat(number).concat("\n");
+        tokenDetails = tokenDetails.concat(color).concat(number).concat(" ");
         return tokenDetails;
     }
 
