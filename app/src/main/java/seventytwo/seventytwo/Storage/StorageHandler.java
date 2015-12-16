@@ -1,6 +1,7 @@
 package seventytwo.seventytwo.Storage;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,6 +31,8 @@ public class StorageHandler {
 
         if (!doesFileExist) {
             _storage.createNewFile();
+            saveContent.add("0");
+            saveContent.add("0");
             _logger.log(Level.INFO, "Create a new save file and return empty high score and last game state.");
         } else {
             Scanner sc = new Scanner(_storage);
@@ -44,5 +47,21 @@ public class StorageHandler {
 
     private boolean doesFileExist(File file) {
         return file.exists();
+    }
+
+    public void transferTempStorageToFile(ArrayList<String> saveContent) throws IOException {
+        FileWriter file = new FileWriter(_storage);
+        copyAllContentToFile(file, saveContent);
+        file.close();
+        _logger.log(Level.INFO, "Copy all save contents into save file.");
+    }
+
+    private void copyAllContentToFile(FileWriter file, ArrayList<String> saveContent) throws IOException {
+        for (int i = 0; i < saveContent.size(); i++) {
+            String content = saveContent.get(i);
+            file.write(content);
+            file.write("\n");
+            file.flush();
+        }
     }
 }
