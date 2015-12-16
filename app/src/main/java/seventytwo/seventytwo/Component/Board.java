@@ -80,10 +80,10 @@ public class Board {
         String tokenDetails = saveContent.get(0);
         String[] tokenDetailsArray = tokenDetails.split(" ");
         for (int i = 0; i < NO_OF_COL; i++) {
-            for (int j = 0; i < NO_OF_ROW; j++) {
+            for (int j = 0; j < NO_OF_ROW; j++) {
                 _board[i][j].setToken(Token.fromString(tokenDetailsArray[i+j]));
             }
         }
-        _logger.log(Level.INFO, "Fill the board with save data.");
+        _logger.log(Level.INFO, "Fill the board with saved data.");
     }
 }
