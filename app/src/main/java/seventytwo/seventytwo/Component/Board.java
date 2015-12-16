@@ -1,9 +1,11 @@
 package seventytwo.seventytwo.Component;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seventytwo.seventytwo.Logger.GlobalLogger;
+import seventytwo.seventytwo.Storage.StorageManipulator;
 
 /**
  * Created by dongu on 10/12/2015.
@@ -17,6 +19,7 @@ public class Board {
 
     private static Board _singleBoard = new Board();
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
+    private StorageManipulator _storageManipulator = new StorageManipulator();
 
     // Attributes
     //private Cell[] row = new Cell[10];
@@ -43,11 +46,14 @@ public class Board {
     }
 
     public Board saveBoard() {
-        for (int i = 0; i < NO_OF_ROW; i++) {
-            for (int j = 0; j < NO_OF_COL; j++) {
+        ArrayList<String> saveContent = new ArrayList<>();
+        for (int i = 0; i < NO_OF_COL; i++) {
+            for (int j = 0; j < NO_OF_ROW; j++) {
                 Token token = board[i][j].getToken();
+                saveContent.add(token.toString());
             }
         }
+        _storageManipulator.saveTempStorage(saveContent);
         _logger.log(Level.INFO, "Save the current state of the board.");
         return _singleBoard;
     }
