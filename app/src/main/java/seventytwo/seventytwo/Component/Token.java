@@ -1,5 +1,6 @@
 package seventytwo.seventytwo.Component;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seventytwo.seventytwo.Logger.GlobalLogger;
@@ -52,5 +53,29 @@ public class Token {
         String number = Integer.toString(_number);
         tokenDetails = tokenDetails.concat(color).concat(number).concat("\n");
         return tokenDetails;
+    }
+
+    public static Token fromString(String tokenString) {
+        String color;
+        switch (tokenString.substring(0,1)) {
+            case "R": color = "RED";
+                break;
+            case "B": color = "BLUE";
+                break;
+            case "G": color = "GREEN";
+                break;
+            case "Y": color = "YELLOW";
+                break;
+            case "C": color = "CYAN";
+                break;
+            case "P": color = "PINK";
+                break;
+            default: color = null;
+        }
+
+        int number = Integer.parseInt(tokenString.substring(1));
+        Token token = new Token(color, number);
+        _logger.log(Level.INFO, "Convert string into token information.");
+        return token;
     }
 }

@@ -24,7 +24,7 @@ public class Board {
     // Attributes
     //private Cell[] row = new Cell[10];
     //private Cell[] column = new Cell[11];
-    private Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
+    private Cell[][] _board = new Cell[NO_OF_ROW][NO_OF_COL];
 
     // Constructor
     public Board() {
@@ -49,17 +49,22 @@ public class Board {
         ArrayList<String> saveContent = new ArrayList<>();
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
-                Token token = board[i][j].getToken();
+                Token token = _board[i][j].getToken();
                 saveContent.add(token.toString());
             }
         }
-        _storageManipulator.saveTempStorage(saveContent);
+        _storageManipulator.setSaveContent(saveContent);
         _logger.log(Level.INFO, "Save the current state of the board.");
         return _singleBoard;
     }
 
     public Board loadBoard() {
-        // TODO
+        ArrayList<String> saveContent = _storageManipulator.getSaveContent();
+        for (int i = 0; i < NO_OF_COL; i++) {
+            for (int j = 0; j < NO_OF_ROW; j++) {
+                fillBoard(saveContent);
+            }
+        }
         _logger.log(Level.INFO, "Load a previous state of the board.");
         return _singleBoard;
     }
@@ -67,9 +72,13 @@ public class Board {
     private void clearBoard() {
         for (int i = 0; i < NO_OF_ROW; i++) {
             for (int j = 0; j < NO_OF_COL; j++) {
-                board[i][j].setToken(null);
+                _board[i][j].setToken(null);
             }
         }
         _logger.log(Level.INFO, "Clear the board of the current tokens.");
+    }
+
+    private void fillBoard(ArrayList<String> saveContent) {
+        // TODO
     }
 }

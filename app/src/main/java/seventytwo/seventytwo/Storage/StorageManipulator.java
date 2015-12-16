@@ -27,10 +27,6 @@ public class StorageManipulator {
         return _saveContent;
     }
 
-    // Mutators
-    public void setSaveContent(ArrayList<String> saveContent) {
-        _saveContent = saveContent;
-    }
 
     public void generateStorageManipulator() throws IOException {
         String fileName = "save.txt";
@@ -38,7 +34,8 @@ public class StorageManipulator {
         _logger.log(Level.INFO, "Generate the temporary storage with the save content.");
     }
 
-    public void saveTempStorage(ArrayList<String> saveContent) {
+    // Mutator
+    public void setSaveContent(ArrayList<String> saveContent) {
         for (int i = 0; i < _saveContent.size(); i++) {
             _saveContent.set(i, saveContent.get(i));
         }
