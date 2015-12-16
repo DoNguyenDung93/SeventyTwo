@@ -1,6 +1,7 @@
 package seventytwo.seventytwo.Component;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,8 +17,9 @@ public class Board {
 
     private static final int NO_OF_ROW = 8;
     private static final int NO_OF_COL = 9;
+    private static final int NO_OF_STARTING_TOKENS = 6;
+    private static final int NO_OF_NUMBERS = 6;
 
-    private static Board _singleBoard = new Board();
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
     private StorageManipulator _storageManipulator = new StorageManipulator();
 
@@ -25,25 +27,30 @@ public class Board {
     private Cell[][] _board = new Cell[NO_OF_ROW][NO_OF_COL];
 
     // Constructor
-    public Board() {
+    public Board(Cell[][] board) {
+        _board = board;
     }
 
     // Accessor
-    public static Board getInstance() {
-        if (_singleBoard == null) {
-            _singleBoard = new Board();
+//   // public static Board getInstance() {
+//        if (_singleBoard == null) {
+//            _singleBoard = new Board(_board);
+//        }
+//        _logger.log(Level.INFO, "Creating a new instance of the board.");
+//        return _singleBoard;
+//    }
+
+    public Cell[][] newBoard() {
+        //Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
+        clearBoard();
+        for (int a = 0; a < NO_OF_STARTING_TOKENS; a++) {
+            fillRandomCell();
         }
-        _logger.log(Level.INFO, "Creating a new instance of the board.");
-        return _singleBoard;
-    }
-
-    public Board newBoard() {
-        // TODO
         _logger.log(Level.INFO, "Create a new board for new game.");
-        return _singleBoard;
+        return _board;
     }
 
-    public Board saveBoard() {
+    public Cell[][] saveBoard() {
         ArrayList<String> saveContent = new ArrayList<>();
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
@@ -53,10 +60,10 @@ public class Board {
         }
         _storageManipulator.setSaveContent(saveContent);
         _logger.log(Level.INFO, "Save the current state of the board.");
-        return _singleBoard;
+        return _board;
     }
 
-    public Board loadBoard() {
+    public Cell[][] loadBoard() {
         ArrayList<String> saveContent = _storageManipulator.getSaveContent();
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
@@ -64,7 +71,7 @@ public class Board {
             }
         }
         _logger.log(Level.INFO, "Load a previous state of the board.");
-        return _singleBoard;
+        return _board;
     }
 
     private void clearBoard() {
@@ -85,5 +92,22 @@ public class Board {
             }
         }
         _logger.log(Level.INFO, "Fill the board with saved data.");
+    }
+
+    private void fillRandomCell() {
+        int[] XYCoordinates = chooseRandomEmptyCell();
+        Color randColor = Color.getRandomColor();
+        int randNumber = new Random().nextInt(NO_OF_NUMBERS);
+        _board[XYCoordinates[0]][XYCoordinates[1]].setToken(new Token(randColor, randNumber));
+    }
+
+    private int[] chooseRandomEmptyCell() {
+        int i = new Random().nextInt(NO_OF_ROW);
+        int j = new Random().nextInt(NO_OF_COL);
+        if (_board[i][j] != null) {
+            return chooseRandomEmptyCell();
+        } else {
+            return new int[] {i, j};
+        }
     }
 }
