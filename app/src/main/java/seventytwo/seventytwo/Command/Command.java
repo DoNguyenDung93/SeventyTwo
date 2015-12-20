@@ -2,7 +2,7 @@ package seventytwo.seventytwo.Command;
 
 import java.util.logging.Logger;
 
-import seventytwo.seventytwo.Logger.GlobalLogger;
+import seventytwo.seventytwo.Component.Board;
 import seventytwo.seventytwo.Storage.StorageManipulator;
 
 /**
@@ -12,11 +12,13 @@ import seventytwo.seventytwo.Storage.StorageManipulator;
 public class Command {
 
     protected static StorageManipulator _storageManipulator;
-    private static Logger _logger = GlobalLogger.getInstance().getLogger();
+    protected static Logger _logger;
+    protected Board _board;
 
     public StorageManipulator getStorageManipulator() {
         return _storageManipulator;
     }
 
+    public Board getBoard() { return _board; }
 
 }

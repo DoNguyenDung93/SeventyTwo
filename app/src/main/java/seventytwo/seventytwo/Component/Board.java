@@ -25,12 +25,19 @@ public class Board {
     private Cell[][] _board = new Cell[NO_OF_ROW][NO_OF_COL];
 
     // Constructor
-    public Board(Cell[][] board) {
-        _board = board;
+    public Board() {
     }
 
+    // Accessor
+    public Cell[][] getBoard() {
+        return _board;
+    }
+
+    // Mutator
+    public void setBoard(Cell[][] board) {
+        _board = board;
+    }
     public Cell[][] newBoard() {
-        //Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
         clearBoard();
 
         ArrayList<Color> colors = new ArrayList<>();
