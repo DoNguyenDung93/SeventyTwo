@@ -15,8 +15,8 @@ import seventytwo.seventytwo.Storage.StorageManipulator;
  */
 public class Board {
 
-    private static final int NO_OF_ROW = 8;
-    private static final int NO_OF_COL = 9;
+    private static final int NO_OF_ROW = 12;
+    private static final int NO_OF_COL = 8;
     private static final int NO_OF_STARTING_TOKENS = 6;
     private static final int NO_OF_NUMBERS = 6;
 
@@ -34,9 +34,23 @@ public class Board {
     public Cell[][] newBoard() {
         //Cell[][] board = new Cell[NO_OF_ROW][NO_OF_COL];
         clearBoard();
-        for (int a = 0; a < NO_OF_STARTING_TOKENS; a++) {
-            fillRandomCell();
+
+        ArrayList<Color> colors = new ArrayList<>();
+        colors.add(Color.RED);
+        colors.add(Color.BLUE);
+        colors.add(Color.CYAN);
+        colors.add(Color.GREEN);
+        colors.add(Color.PINK);
+        colors.add(Color.YELLOW);
+
+        int[] numbers = {1, 2, 3, 4, 5, 6};
+
+        while (colors.size() != 0 && numbers.length != 0) {
+            Color randColor = Color.getRandomColor();
+            int randNumber = new Random().nextInt(numbers.length);
+            fillRandomCell(randColor, randNumber);
         }
+
         _logger.log(Level.INFO, "Create a new board for new game.");
         return _board;
     }
@@ -85,10 +99,8 @@ public class Board {
         _logger.log(Level.INFO, "Fill the board with saved data.");
     }
 
-    private void fillRandomCell() {
+    private void fillRandomCell(Color randColor, int randNumber) {
         int[] XYCoordinates = chooseRandomEmptyCell();
-        Color randColor = Color.getRandomColor();
-        int randNumber = new Random().nextInt(NO_OF_NUMBERS);
         _board[XYCoordinates[0]][XYCoordinates[1]].setToken(new Token(randColor, randNumber));
     }
 
