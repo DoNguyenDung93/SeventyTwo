@@ -17,8 +17,6 @@ public class Board {
 
     private static final int NO_OF_ROW = 12;
     private static final int NO_OF_COL = 8;
-    private static final int NO_OF_STARTING_TOKENS = 6;
-    private static final int NO_OF_NUMBERS = 6;
 
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
     private StorageManipulator _storageManipulator = new StorageManipulator();
@@ -43,12 +41,20 @@ public class Board {
         colors.add(Color.PINK);
         colors.add(Color.YELLOW);
 
-        int[] numbers = {1, 2, 3, 4, 5, 6};
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(6);
 
-        while (colors.size() != 0 && numbers.length != 0) {
+        while (colors.size() != 0 && numbers.size() != 0) {
             Color randColor = Color.getRandomColor();
-            int randNumber = new Random().nextInt(numbers.length);
+            int randNumber = new Random().nextInt(numbers.size());
             fillRandomCell(randColor, randNumber);
+            colors.remove(getPositionInArrayList(colors, randColor));
+            numbers.remove(getPositionInArrayList(numbers, randNumber));
         }
 
         _logger.log(Level.INFO, "Create a new board for new game.");
@@ -112,5 +118,16 @@ public class Board {
         } else {
             return new int[] {i, j};
         }
+    }
+
+    private <T> int getPositionInArrayList(ArrayList<T> arrayList, T object) {
+        int result = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).equals(object)) {
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 }
