@@ -1,9 +1,11 @@
 package seventytwo.seventytwo.Command;
 
+import java.util.logging.Level;
+
 import seventytwo.seventytwo.Component.Board;
-import seventytwo.seventytwo.Component.Cell;
 import seventytwo.seventytwo.Logger.GlobalLogger;
 import seventytwo.seventytwo.Storage.StorageManipulator;
+
 
 /**
  * Created by dongu on 11/12/2015.
@@ -18,12 +20,15 @@ public class NewGameCommand extends Command{
         }
 
         _logger = GlobalLogger.getInstance().getLogger();
-        _board = createNewBoard();
+        _board = new Board();
     }
 
-    private Board createNewBoard() {
-        Cell[][] newBoard = _board.newBoard();
-        _board.setBoard(newBoard);
-        return _board;
+    public String executeCommand() {
+        _board.setBoard(_board.createNewBoard());
+        _board.setHighScore(0);
+        _board.setTokenLeft(66);
+        _logger.log(Level.INFO, "Execute the command of ");
+        return "Successfully create new game.";
     }
+
 }

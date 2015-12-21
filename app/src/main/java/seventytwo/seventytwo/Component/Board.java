@@ -22,7 +22,9 @@ public class Board {
     private StorageManipulator _storageManipulator = new StorageManipulator();
 
     // Attributes
-    private Cell[][] _board = new Cell[NO_OF_ROW][NO_OF_COL];
+    private Cell[][] _surface = new Cell[NO_OF_ROW][NO_OF_COL];
+    private int _highScore;
+    private int _tokenLeft;
 
     // Constructor
     public Board() {
@@ -30,14 +32,31 @@ public class Board {
 
     // Accessor
     public Cell[][] getBoard() {
-        return _board;
+        return _surface;
+    }
+
+    public int getHighScore() {
+        return _highScore;
+    }
+
+    public int getTokenLeft() {
+        return _tokenLeft;
     }
 
     // Mutator
     public void setBoard(Cell[][] board) {
-        _board = board;
+        _surface = board;
     }
-    public Cell[][] newBoard() {
+
+    public void setHighScore(int number) {
+        _highScore = number;
+    }
+
+    public void setTokenLeft(int number) {
+        _tokenLeft = number;
+    }
+
+    public Cell[][] createNewBoard() {
         clearBoard();
 
         ArrayList<Color> colors = new ArrayList<>();
@@ -65,20 +84,23 @@ public class Board {
         }
 
         _logger.log(Level.INFO, "Create a new board for new game.");
-        return _board;
+        return _surface;
     }
 
     public Cell[][] saveBoard() {
         ArrayList<String> saveContent = new ArrayList<>();
+        String tokenDetails = "";
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
-                Token token = _board[i][j].getToken();
-                saveContent.add(token.toString());
+                Token token = _surface[i][j].getToken();
+                tokenDetails = tokenDetails.concat(token.toString());
             }
         }
+        saveContent.set(0, tokenDetails);
+        saveContent.set(1, Integer.toString(_highScore));
         _storageManipulator.setSaveContent(saveContent);
         _logger.log(Level.INFO, "Save the current state of the board.");
-        return _board;
+        return _surface;
     }
 
     public Cell[][] loadBoard() {
@@ -88,14 +110,15 @@ public class Board {
                 fillBoard(saveContent);
             }
         }
+        _highScore = Integer.valueOf(saveContent.get(1));
         _logger.log(Level.INFO, "Load a previous state of the board.");
-        return _board;
+        return _surface;
     }
 
     private void clearBoard() {
         for (int i = 0; i < NO_OF_ROW; i++) {
             for (int j = 0; j < NO_OF_COL; j++) {
-                _board[i][j].setToken(null);
+                _surface[i][j].setToken(null);
             }
         }
         _logger.log(Level.INFO, "Clear the board of the current tokens.");
@@ -106,7 +129,7 @@ public class Board {
         String[] tokenDetailsArray = tokenDetails.split(" ");
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
-                _board[i][j].setToken(Token.fromString(tokenDetailsArray[i+j]));
+                _surface[i][j].setToken(Token.fromString(tokenDetailsArray[i+j]));
             }
         }
         _logger.log(Level.INFO, "Fill the board with saved data.");
@@ -114,13 +137,13 @@ public class Board {
 
     private void fillRandomCell(Color randColor, int randNumber) {
         int[] XYCoordinates = chooseRandomEmptyCell();
-        _board[XYCoordinates[0]][XYCoordinates[1]].setToken(new Token(randColor, randNumber));
+        _surface[XYCoordinates[0]][XYCoordinates[1]].setToken(new Token(randColor, randNumber));
     }
 
     private int[] chooseRandomEmptyCell() {
         int i = new Random().nextInt(NO_OF_ROW);
         int j = new Random().nextInt(NO_OF_COL);
-        if (_board[i][j] != null) {
+        if (_surface[i][j] != null) {
             return chooseRandomEmptyCell();
         } else {
             return new int[] {i, j};
@@ -136,5 +159,17 @@ public class Board {
             }
         }
         return result;
+    }
+
+    public int countTokenLeft() {
+        int count = 0;
+        for (int i = 0; i < NO_OF_COL; i++) {
+            for (int j = 0; j < NO_OF_ROW; j++) {
+                if (_surface[i][j] != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
