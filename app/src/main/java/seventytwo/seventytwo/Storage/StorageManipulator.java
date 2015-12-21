@@ -29,16 +29,16 @@ public class StorageManipulator {
 
 
     public void generateStorageManipulator() throws IOException {
-        String fileName = "save.txt";
         _saveContent = _storageHandler.openSaveFile();
         _logger.log(Level.INFO, "Generate the temporary storage with the save content.");
     }
 
     // Mutator
-    public void setSaveContent(ArrayList<String> saveContent) {
+    public void setSaveContent(ArrayList<String> saveContent) throws IOException {
         for (int i = 0; i < _saveContent.size(); i++) {
             _saveContent.set(i, saveContent.get(i));
         }
+        _storageHandler.transferTempStorageToFile(saveContent);
         _logger.log(Level.INFO, "Overwrite the save content in the temp storage.");
     }
 

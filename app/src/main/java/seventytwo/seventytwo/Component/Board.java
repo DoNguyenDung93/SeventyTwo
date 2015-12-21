@@ -1,5 +1,6 @@
 package seventytwo.seventytwo.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -89,16 +90,14 @@ public class Board {
             numbers.remove(getPositionInArrayList(numbers, randNumber));
         }
 
-        _highScore = 0;
+        _highScore = Integer.valueOf(_storageManipulator.getSaveContent().get(1));
         _tokenLeft = 66;
 
-        Board board = new Board(_surface, _highScore, _tokenLeft);
-
         _logger.log(Level.INFO, "Create a new board for new game.");
-        return board;
+        return new Board(_surface, _highScore, _tokenLeft);
     }
 
-    public Cell[][] saveBoard() {
+    public Board saveBoard() throws IOException {
         ArrayList<String> saveContent = new ArrayList<>();
         String tokenDetails = "";
         for (int i = 0; i < NO_OF_COL; i++) {
@@ -111,10 +110,11 @@ public class Board {
         saveContent.set(1, Integer.toString(_highScore));
         _storageManipulator.setSaveContent(saveContent);
         _logger.log(Level.INFO, "Save the current state of the board.");
-        return _surface;
+
+        return new Board(_surface, _highScore, _tokenLeft);
     }
 
-    public Cell[][] loadBoard() {
+    public Board loadBoard() {
         ArrayList<String> saveContent = _storageManipulator.getSaveContent();
         for (int i = 0; i < NO_OF_COL; i++) {
             for (int j = 0; j < NO_OF_ROW; j++) {
@@ -122,8 +122,10 @@ public class Board {
             }
         }
         _highScore = Integer.valueOf(saveContent.get(1));
+        _tokenLeft = countTokenLeft();
         _logger.log(Level.INFO, "Load a previous state of the board.");
-        return _surface;
+
+        return new Board(_surface, _highScore, _tokenLeft);
     }
 
     private void clearBoard() {
