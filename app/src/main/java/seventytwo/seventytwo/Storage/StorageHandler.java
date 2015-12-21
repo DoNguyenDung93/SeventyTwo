@@ -16,30 +16,43 @@ import seventytwo.seventytwo.Logger.GlobalLogger;
  */
 public class StorageHandler {
 
-    private File _storage;
+    private File _boardStorage;
+    private File _highScoreStorage;
     private static Logger _logger = GlobalLogger.getInstance().getLogger();
 
     public StorageHandler() {
     }
 
     public ArrayList<String> openSaveFile() throws IOException {
-        String fileName = "save.txt";
-        _storage = new File(fileName);
-        boolean doesFileExist = doesFileExist(_storage);
+        String fileNameOne = "boardSave.txt";
+        String fileNameTwo = "scoreSave.txt";
+        _boardStorage = new File(fileNameOne);
+        _highScoreStorage = new File(fileNameTwo);
 
         ArrayList<String> saveContent = new ArrayList<>();
 
-        if (!doesFileExist) {
-            _storage.createNewFile();
+        if (!doesFileExist(_boardStorage)) {
+            _boardStorage.createNewFile();
             saveContent.add("0");
-            saveContent.add("0");
-            _logger.log(Level.INFO, "Create a new save file and return empty high score and last game state.");
+            _logger.log(Level.INFO, "Create a new save file and return last game state.");
         } else {
-            Scanner sc = new Scanner(_storage);
+            Scanner sc = new Scanner(_boardStorage);
             while (sc.hasNext()) {
                 saveContent.add(sc.nextLine());
             }
-            _logger.log(Level.INFO, "Open the existing save file.");
+            _logger.log(Level.INFO, "Open the existing board save file.");
+        }
+
+        if (!doesFileExist(_highScoreStorage)) {
+            _highScoreStorage.createNewFile();
+            saveContent.add("0");
+            _logger.log(Level.INFO, "Create a new save file for high score.");
+        } else {
+            Scanner sc = new Scanner(_highScoreStorage);
+            while (sc.hasNext()) {
+                saveContent.add(sc.nextLine());
+            }
+            _logger.log(Level.INFO, "Open the existing score save file.");
         }
 
         return saveContent;
@@ -50,18 +63,19 @@ public class StorageHandler {
     }
 
     public void transferTempStorageToFile(ArrayList<String> saveContent) throws IOException {
-        FileWriter file = new FileWriter(_storage);
-        copyAllContentToFile(file, saveContent);
-        file.close();
+        FileWriter fileOne = new FileWriter(_boardStorage);
+        FileWriter fileTwo = new FileWriter(_highScoreStorage);
+        copyContentToFile(fileOne, saveContent, 0);
+        copyContentToFile(fileTwo, saveContent, 1);
+        fileOne.close();
+        fileTwo.close();
         _logger.log(Level.INFO, "Copy all save contents into save file.");
     }
 
-    private void copyAllContentToFile(FileWriter file, ArrayList<String> saveContent) throws IOException {
-        for (int i = 0; i < saveContent.size(); i++) {
-            String content = saveContent.get(i);
-            file.write(content);
-            file.write("\n");
-            file.flush();
-        }
+    private void copyContentToFile(FileWriter file, ArrayList<String> saveContent, int number) throws IOException {
+        String content = saveContent.get(number);
+        file.write(content);
+        file.write("\n");
+        file.flush();
     }
 }

@@ -30,6 +30,12 @@ public class Board {
     public Board() {
     }
 
+    public Board(Cell[][] surface, int highScore, int tokenLeft) {
+        _surface = surface;
+        _highScore = highScore;
+        _tokenLeft = tokenLeft;
+    }
+
     // Accessor
     public Cell[][] getBoard() {
         return _surface;
@@ -56,7 +62,7 @@ public class Board {
         _tokenLeft = number;
     }
 
-    public Cell[][] createNewBoard() {
+    public Board createNewBoard() {
         clearBoard();
 
         ArrayList<Color> colors = new ArrayList<>();
@@ -83,8 +89,13 @@ public class Board {
             numbers.remove(getPositionInArrayList(numbers, randNumber));
         }
 
+        _highScore = 0;
+        _tokenLeft = 66;
+
+        Board board = new Board(_surface, _highScore, _tokenLeft);
+
         _logger.log(Level.INFO, "Create a new board for new game.");
-        return _surface;
+        return board;
     }
 
     public Cell[][] saveBoard() {

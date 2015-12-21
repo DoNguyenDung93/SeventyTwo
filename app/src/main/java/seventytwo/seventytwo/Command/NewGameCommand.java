@@ -24,9 +24,7 @@ public class NewGameCommand extends Command{
     }
 
     public String executeCommand() {
-        _board.setBoard(_board.createNewBoard());
-        _board.setHighScore(0);
-        _board.setTokenLeft(66);
+        _board = _board.createNewBoard();
         _logger.log(Level.INFO, "Execute the command of ");
         return "Successfully create new game.";
     }
