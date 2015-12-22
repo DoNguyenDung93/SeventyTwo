@@ -9,7 +9,7 @@ import seventytwo.seventytwo.Storage.StorageManipulator;
  * Created by dongu on 15/12/2015.
  * This is an abstract class that is inherited by other command classes.
  */
-public class Command {
+public abstract class Command {
 
     protected static StorageManipulator _storageManipulator;
     protected static Logger _logger;
@@ -20,5 +20,7 @@ public class Command {
     }
 
     public Board getBoard() { return _board; }
+
+    public abstract String executeCommand();
 
 }
