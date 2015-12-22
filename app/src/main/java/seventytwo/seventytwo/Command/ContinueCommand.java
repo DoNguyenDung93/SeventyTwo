@@ -1,5 +1,7 @@
 package seventytwo.seventytwo.Command;
 
+import java.util.logging.Level;
+
 import seventytwo.seventytwo.Component.Board;
 import seventytwo.seventytwo.Logger.GlobalLogger;
 import seventytwo.seventytwo.Storage.StorageManipulator;
@@ -20,8 +22,9 @@ public class ContinueCommand extends Command {
         _board = new Board();
     }
 
-//    public String executeCommand() {
-//        _board.setBoard(_board.loadBoard());
-//
-//    }
+    public String executeCommand() {
+        _board = _board.loadBoard();
+        _logger.log(Level.INFO, "Load the latest board state from the save file.");
+        return "Successfully load previous game.";
+    }
 }
