@@ -1,7 +1,7 @@
 # SeventyTwo
 A puzzle game for Android OS
 
-The main objective of this game is to fill a board of 72 squares with tokens.
+The main objective of this game is to fill a board which consists of 96 squares with 72 tokens.
 
 There are 36 types of tokens, divived into colors and number. There are 6 colors and 6 numbers. Each token will have one color and one number.
 
